@@ -6,8 +6,8 @@
 
 int moistPin = A5;
 MKRIoTCarrier carrier;
-int minMoisture = 0;
-int maxMoisture = 100;
+int minMoisture = 700;
+int maxMoisture = 1023;
 int moistureThreshold = 50;
 
 void setup() {
@@ -24,7 +24,7 @@ void loop() {
   int moistValue = rawMoistValue;
   
   if(moistValue > moistureThreshold)
-    displayGoodHealth();
+    displayGoodHealth(moistValue);
   else
     displayBadHealth(moistValue);
   
@@ -32,9 +32,31 @@ void loop() {
 }
 
 void displayGoodHealth(int moistureValue){
-  Serial.println("I'm in good health! Moisture: " + moistureValue);
+  Serial.print("I'm in good health! Moisture: ");
+  Serial.println(moistureValue);
+  //The LCD display
+  carrier.display.fillScreen(ST77XX_ORANGE);
+  carrier.display.setTextColor(ST77XX_WHITE);
+
+  carrier.display.setCursor(30, 50);
+  carrier.display.print("Moisture Level: ");
+  carrier.display.setTextSize(4);
+  carrier.display.setCursor(40, 120);
+  carrier.display.print(moistureValue);
+  
+  
 }
 
 void displayBadHealth(int moistureValue){
-  Serial.println("I'm in bad health! Moisture: " + moistureValue);
+  Serial.print("I'm in bad health! Moisture: ");
+  Serial.println(moistureValue);
+
+  carrier.display.fillScreen(ST77XX_RED);
+  carrier.display.setTextColor(ST77XX_WHITE);
+
+  carrier.display.setCursor(30, 50);
+  carrier.display.print("Moisture Level: ");
+  carrier.display.setTextSize(4);
+  carrier.display.setCursor(40, 120);
+  carrier.display.print(moistureValue);
 }
