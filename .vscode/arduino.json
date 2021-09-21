@@ -1,6 +1,7 @@
 {
-    "board": "arduino:samd:mkrwifi1010",
-    "programmer": "arduino:atmel_ice",
     "port": "COM3",
-    "sketch": "plant_humidity_sensor\\src\\src.ino"
+    "postbuild": "IF \"%VSCA_BUILD_MODE%\"==\"Uploading\" (echo 'DONE UPLOADING')",
+    "board": "arduino:samd:mkrwifi1010",
+    "programmer": "arduino:sam_ice",
+    "sketch": "act8_plus\\act8_plus.ino"
 }
