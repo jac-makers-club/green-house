@@ -31,6 +31,7 @@ int moinstPin = A5;
 int relayPin = 7;
 String relayState1 = "";
 String relayState2 = "";
+int connectionCounter = 0;
 
 int minMoisture = 700;
 int maxMoisture = 1023;
@@ -57,9 +58,10 @@ void setup()
   setDebugMessageLevel(2);
   ArduinoCloud.printDebugInfo();
 
-  while (ArduinoCloud.connected() != 1)
+  while (ArduinoCloud.connected() != 1  && connectionCounter < 10 )
   {
     ArduinoCloud.update();
+    connectionCounter++;
     delay(500);
   }
 
