@@ -1,6 +1,0 @@
-{
-    "board": "arduino:samd:mkrwifi1010",
-    "programmer": "arduino:atmel_ice",
-    "port": "COM3",
-    "sketch": "plant_humidity_sensor\\src\\src.ino"
-}
