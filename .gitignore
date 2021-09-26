@@ -1,0 +1,6 @@
+# List of files to be ignored by git when creating commits.
+
+# Specific VS Code configuration (personal to each developer_)
+/.vscode
+# Usually file containing Wifi credentials. Don't expose in public repo
+arduino_secrets.h
