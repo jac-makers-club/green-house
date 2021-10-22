@@ -3,5 +3,5 @@
     "postbuild": "IF \"%VSCA_BUILD_MODE%\"==\"Uploading\" (echo 'DONE UPLOADING')",
     "board": "arduino:samd:mkrwifi1010",
     "programmer": "arduino:sam_ice",
-    "sketch": "act8_plus\\act8_plus.ino"
+    "sketch": "relay-tester\\relay-tester.ino"
 }
