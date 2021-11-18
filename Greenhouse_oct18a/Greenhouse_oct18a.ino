@@ -7,10 +7,9 @@
 
   The following variables are automatically generated and updated when changes are made to the Thing
 
-  int moisture;
-  bool waterPump_active;
   int target_moisture;
-  int humidifier_active;
+  bool waterPump_activate;
+  int moisture;
 
   Variables which are marked as READ/WRITE in the Cloud Thing will also have functions
   which are called when their values are changed from the Dashboard.
@@ -25,8 +24,6 @@ int timer_delay = 2000;
 int timer_start = 0;
 
 int moisture_histeresys = 20;
-
-
 
 void setup() {
   pinMode(A6, INPUT);
@@ -57,7 +54,7 @@ void setup() {
   carrier.begin();
   carrier.display.print("Initializating");
   
-  humidity = 100;
+  moisture = 100;
 
 }
 
@@ -81,10 +78,10 @@ bool timer(){
 
 }
 void work(){
-  if(moisture > target_moist - (moisture_histeresys / 2) ){
+  if(moisture > target_moisture - (moisture_histeresys / 2) ){
     water(false);
 
-  } else if(moisture < target_moist  + (moisture_histeresys / 2) ){
+  } else if(moisture < target_moisture  + (moisture_histeresys / 2) ){
     water(true);
   }
 }
@@ -99,7 +96,7 @@ void updateReadings(){
   Serial.print("Moisture: \t");
   Serial.println(moisture);
   Serial.print("Target humid: \t");
-  Serial.println(target_humidity);
+  Serial.println(target_moisture);
 }
 
 void water(bool status){
@@ -111,17 +108,12 @@ void water(bool status){
 }
 
 /*
-  Since Moisture is READ_WRITE variable, onMoistureChange() is
-  executed every time a new value is received from IoT Cloud.
-*/
-
-/*
   Since WaterPumpActive is READ_WRITE variable, onWaterPumpActiveChange() is
   executed every time a new value is received from IoT Cloud.
 */
-void onWaterPumpActiveChange()  {
+void onWaterPumpActivateChange()  {
   // Add your code here to act upon WaterPumpActive change
-    water(waterPump_active);
+    water(waterPump_activate);
 
 }
 /*
