@@ -1,7 +1,0 @@
-{
-    "port": "COM3",
-    "postbuild": "IF \"%VSCA_BUILD_MODE%\"==\"Uploading\" (echo 'DONE UPLOADING')",
-    "board": "arduino:samd:mkrwifi1010",
-    "programmer": "arduino:sam_ice",
-    "sketch": "relay-tester\\relay-tester.ino"
-}
