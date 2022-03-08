@@ -3,9 +3,11 @@
 */
 #include "Arduino_MCHPTouch.h"
 #include <Arduino_MKRIoTCarrier.h>
+#include "Pump.h"
 
 int moistPin = A5;
 MKRIoTCarrier carrier;
+Pump pump;
 //Deviding the range in 4 parts so that the user has less guesswork to do
 //These extra variables will most likely be unused and deleted but I just wanted to be sure in case we wanted to implement more ranges
 int minMoisture = 670; //Completely wet
@@ -23,7 +25,8 @@ void setup() {
   delay(1500);
   
   CARRIER_CASE = false;
-  carrier.begin();
+  //carrier.begin();
+  
 }
 
 void loop() {
