@@ -6,13 +6,16 @@
 LedRTC::LedRTC(MKRIoTCarrier &carrier) : // Using brace initialization systax (also called list initialization).
                                          _carrier{carrier}
 {
-    // Relay in open position by default
-    _carrier.Relay1.close();
+    // Do nothing for now (carrier might not have initialized yet).
+    // Initialize default values in beginRTC()
 }
 
 void LedRTC::beginRTC()
 {
     Serial.println("Constructing LedRTC");
+
+    // Relay in open position by default
+    _carrier.Relay1.close();
 
     if (!rtc.begin())
     {

@@ -3,8 +3,7 @@
 #include <Arduino_MKRIoTCarrier.h>
 #include "LedRTC.h"
 
-MKRIoTCarrier carrier = MKRIoTCarrier();
-
+MKRIoTCarrier carrier;
 LedRTC timer = LedRTC(carrier);
 
 void setup()
