@@ -30,48 +30,5 @@ void setup() {
 }
 
 void loop() {
-  int rawMoistValue = analogRead(moistPin);
-  int moistValue = rawMoistValue;
   
-  if(lastMoisture != moistValue){
-    //The moisture level is reaching wettest level (Could be problematic as too much water is bad)
-    if(moistValue < moistureThreshold)
-      displayGoodHealth(moistValue);
-    else
-      displayBadHealth(moistValue);
-  }
-
-  lastMoisture = moistValue;
-  delay(1000);
-}
-
-
-void displayGoodHealth(int moistureValue){
-  
-  //The LCD display
-  carrier.display.fillScreen(ST77XX_GREEN);
-  carrier.display.setTextColor(ST77XX_WHITE);
-  Serial.print("I'm in good health! Moisture: ");
-  Serial.println(moistureValue);
-  carrier.display.setCursor(30, 50);
-  carrier.display.setTextSize(4);
-  carrier.display.print("Moisture Level: ");
-  carrier.display.setCursor(40, 120);
-  carrier.display.print(moistureValue);
-  
-  
-}
-
-void displayBadHealth(int moistureValue){
-  Serial.print("I'm in bad health! Moisture: ");
-  Serial.println(moistureValue);
-
-  carrier.display.fillScreen(ST77XX_RED);
-  carrier.display.setTextColor(ST77XX_WHITE);
-
-  carrier.display.setCursor(30, 50);
-  carrier.display.setTextSize(4);
-  carrier.display.print("Moisture Level: ");
-  carrier.display.setCursor(40, 120);
-  carrier.display.print(moistureValue);
 }

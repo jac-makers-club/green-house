@@ -5,12 +5,14 @@
 #include <Arduino_MKRIoTCarrier.h>
 
 class Pump{
+  MKRIoTCarrier _carrier;
+  
   public:
-    Pump();
+    Pump(MKRIoTCarrier &carrier);
     void TurnOn();
     void TurnOff();
-  private:
-    MKRIoTCarrier carrier;
+    displayBadHealth();
+    displayGoodHealth();
 };
 
 #endif
