@@ -6,13 +6,16 @@
 
 class Pump{
   MKRIoTCarrier _carrier;
-  
+  int moistPin;
+//  void displayBadHealth();
+//  void displayGoodHealth();
+  private:
+    void turnOff();
+    void turnOn();
+    float readMoisture();
   public:
     Pump(MKRIoTCarrier &carrier);
-    void TurnOn();
-    void TurnOff();
-    displayBadHealth();
-    displayGoodHealth();
+    void water();
 };
 
 #endif
