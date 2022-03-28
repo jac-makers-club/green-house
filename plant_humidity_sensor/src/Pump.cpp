@@ -41,6 +41,7 @@ void Pump::water(){
   }
 
   // If you're here, then the pump didn't water enough or has no water left.
+  // TODO: Signal to the user that the pump is out of water.
   Serial.println("Done");
 }
 
