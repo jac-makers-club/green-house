@@ -3,19 +3,13 @@
 */
 #include "Arduino_MCHPTouch.h"
 #include <Arduino_MKRIoTCarrier.h>
+#include "Pump.h"
+#include <cstdio>
+#include <functional>
 
 int moistPin = A5;
 MKRIoTCarrier carrier;
-//Deviding the range in 4 parts so that the user has less guesswork to do
-//These extra variables will most likely be unused and deleted but I just wanted to be sure in case we wanted to implement more ranges
-int minMoisture = 670; //Completely wet
-int oneThirdsMoisture = 758.25; //good moisture
-int twoThirdsMoisture = 846.5; //Wet enough
-int threeThirdMOisture = 934.75; //Somewhat wet
-int maxMoisture = 1023; //Completely Dry
-//Was 50
-int moistureThreshold = 848;
-int lastMoisture = -1;
+Pump* pump;
 
 void setup() {
   Serial.begin(9600);
@@ -24,51 +18,23 @@ void setup() {
   
   CARRIER_CASE = false;
   carrier.begin();
+
+  // Initialize the led / pump classes
+  pump = new Pump(carrier);
+
+  // Initialize the scheduler
+  // scheduler = new Scheduler();
+    // Scheduler Init
+        // Initialize an event list.
+        // Make sure RTC time has been set.
+  // Add the time events to the scheduler
+  // scheduler.addEvent("8:00 PM", pump.water);
+  // scheduler.addEvent("7:00 PM", led.on);
+  // scheduler.addEvent("8:00 PM", led.off);
 }
 
 void loop() {
-  int rawMoistValue = analogRead(moistPin);
-  int moistValue = rawMoistValue;
-  
-  if(lastMoisture != moistValue){
-    //The moisture level is reaching wettest level (Could be problematic as too much water is bad)
-    if(moistValue < moistureThreshold)
-      displayGoodHealth(moistValue);
-    else
-      displayBadHealth(moistValue);
-  }
-
-  lastMoisture = moistValue;
-  delay(1000);
-}
-
-
-void displayGoodHealth(int moistureValue){
-  
-  //The LCD display
-  carrier.display.fillScreen(ST77XX_GREEN);
-  carrier.display.setTextColor(ST77XX_WHITE);
-  Serial.print("I'm in good health! Moisture: ");
-  Serial.println(moistureValue);
-  carrier.display.setCursor(30, 50);
-  carrier.display.setTextSize(4);
-  carrier.display.print("Moisture Level: ");
-  carrier.display.setCursor(40, 120);
-  carrier.display.print(moistureValue);
-  
-  
-}
-
-void displayBadHealth(int moistureValue){
-  Serial.print("I'm in bad health! Moisture: ");
-  Serial.println(moistureValue);
-
-  carrier.display.fillScreen(ST77XX_RED);
-  carrier.display.setTextColor(ST77XX_WHITE);
-
-  carrier.display.setCursor(30, 50);
-  carrier.display.setTextSize(4);
-  carrier.display.print("Moisture Level: ");
-  carrier.display.setCursor(40, 120);
-  carrier.display.print(moistureValue);
+  // scheduler update call -> checks if an event has to run
+  // scheduler.update();
+  pump->water();
 }
